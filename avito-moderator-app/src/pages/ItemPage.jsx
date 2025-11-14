@@ -1,8 +1,9 @@
 // decompose
 
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+// import axios from "axios";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
+import ModeratorPanel from "../components/ModeratorPanel";
 
 const ItemPage = () => {
   const { id } = useParams();
@@ -74,8 +75,13 @@ const ItemPage = () => {
 
   if (!ad) return <div>Объявление не найдено!</div>;
 
+  const moderationHistory = ad.moderationHistory;
+
   return (
     <div className="item-page">
+      
+      <ModeratorPanel />
+
       <div className="item-card">
         <h1 className="item-title">{ad.title}</h1>
 
@@ -129,17 +135,33 @@ const ItemPage = () => {
         </div>
       </div>
 
-      <div className="navigation-buttons">
-        <button onClick={handleToList}>К списку</button>
-        <button onClick={handlePrevAd} disabled={currentAdIndex === 0}>
-          Пред
-        </button>
-        <button
-          onClick={handleNextAd}
-          disabled={currentAdIndex === ads.length - 1}
-        >
-          След
-        </button>
+      <br />
+
+      <div className="moderation__container">
+        <h2 className="moderation-title">История модерации</h2>
+        {moderationHistory.map((moderator, index) => (
+          <div key={index}>
+            <p>Проверил: {moderator.moderatorName}</p>
+            <p>{new Date(moderator.timestamp).toLocaleDateString()}</p>
+            <p>{moderator.action === "approved" ? "Одобрено" : "Отклонено"}</p>
+            <p>{moderator.comment || "Нет комментария"}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="navigate__container">
+        <div className="navigation-buttons">
+          <button onClick={handleToList}>К списку</button>
+          <button onClick={handlePrevAd} disabled={currentAdIndex === 0}>
+            Пред
+          </button>
+          <button
+            onClick={handleNextAd}
+            disabled={currentAdIndex === ads.length - 1}
+          >
+            След
+          </button>
+        </div>
       </div>
     </div>
   );
