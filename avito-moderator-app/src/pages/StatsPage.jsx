@@ -73,10 +73,14 @@ const StatsPage = () => {
           title="Отклонено"
           value={`${stats.rejectedPercentage.toFixed(2)}%`}
         />
+        <StatsCard
+          title="Доработка"
+          value={`${stats.requestChangesPercentage.toFixed(2)}%`}
+        />
         <StatsCard title="Ср. время" value={`${averageReviewTimeMin} мин.`} />
       </div>
       <br />
-      <ChartActivity  />
+      <ChartActivity />
       <ChartCategories />
       <ChartDecisions />
     </div>

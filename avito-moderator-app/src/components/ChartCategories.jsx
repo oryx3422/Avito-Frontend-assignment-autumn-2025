@@ -2,28 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import { Bar } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
+
+
 
 const ChartCategories = () => {
   const [categoryData, setCategoriesData] = useState([]);
-
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -31,15 +15,12 @@ const ChartCategories = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        "http://localhost:3001/api/v1/stats/chart/categories",
-        {
-          params: {},
-        }
+        "http://localhost:3001/api/v1/stats/chart/categories"
       );
       setCategoriesData(response.data);
     } catch (err) {
       setError(
-        `Произошла ошибка при загрузке данных decisions: ${err.message}`
+        `Произошла ошибка при загрузке данных categories: ${err.message}`
       );
       console.error(`fetch error: ${err}`);
     } finally {
@@ -51,15 +32,15 @@ const ChartCategories = () => {
     fetchCategoryData();
   }, []);
 
-  if (loading) return <div className="loading">загрузка...</div>; // todo: add loader
+  if (loading) return <div className="loading">загрузка...</div>;
   if (error) return <div className="error">{error}</div>;
 
   const categoryChartData = {
-    labels: Object.keys(categoryData), // Названия категорий
+    labels: Object.keys(categoryData),
     datasets: [
       {
         label: "Всего",
-        data: Object.values(categoryData), // Значения для каждой категории
+        data: Object.values(categoryData),
         backgroundColor: "rgba(100, 100, 255, 0.5)",
         borderWidth: 1,
       },
@@ -77,7 +58,34 @@ const ChartCategories = () => {
         }}
       >
         <h3>График по категориям проверенных объявлений</h3>
-        <Bar data={categoryChartData} options={{ responsive: true }} />
+
+        <Bar
+          data={categoryChartData}
+          options={{
+            responsive: true,
+            plugins: {
+              legend: {
+                display: false,
+              },
+              datalabels: {
+                display: false,
+              },
+            },
+            scales: {
+              y: {
+                ticks: {
+                  stepSize: 1,
+                  callback: (value) => (Number.isInteger(value) ? value : null),
+                },
+              },
+              x: {
+                ticks: {
+                  autoSkip: false,
+                },
+              },
+            },
+          }}
+        />
       </div>
     </div>
   );
