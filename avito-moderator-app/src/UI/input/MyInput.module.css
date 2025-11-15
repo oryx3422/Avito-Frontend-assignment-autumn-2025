@@ -1,0 +1,8 @@
+.myInput {
+  padding: 5px 10px;
+  margin: 5px;
+  border: 1px solid black;
+  outline: none;
+
+  width: 50%;
+}

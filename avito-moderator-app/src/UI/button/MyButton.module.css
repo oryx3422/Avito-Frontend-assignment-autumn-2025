@@ -1,0 +1,13 @@
+.myBtn {
+  padding: 5px 10px;
+  margin: 5px;
+  border: 1px solid black;
+  background: transparent;
+  cursor: pointer;
+  outline: none;
+}
+
+.myBtn:hover {
+  background: #666;
+  color: #fff;
+}

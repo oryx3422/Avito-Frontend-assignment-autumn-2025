@@ -1,4 +1,11 @@
-import React from "react";
+import classes from "./AdCard.module.css";
+
+const statusLabels = {
+  approved: "Одобрено",
+  rejected: "Отклонено",
+  pending: "Ждет проверки",
+  draft: "Доработка",
+};
 
 const AdCard = ({ ad }) => {
   return (
@@ -24,13 +31,8 @@ const AdCard = ({ ad }) => {
         </p>
 
         <p className="ad-category">Категория: {ad.category}</p>
-        <p className="ad-status">
-          Статус:{" "}
-          {ad.status === "approve"
-            ? "одобрено"
-            : ad.status === "rejected"
-            ? "отклонено"
-            : "на модерации"}
+        <p className={`ad-status ${classes[`ad-status-${ad.status}`]}`}>
+          Статус: {statusLabels[ad.status] || "неизвестно"}
         </p>
         <p className="ad-priority">
           Приоритет: {ad.priority === "urgent" ? "срочный" : "обычный"}
