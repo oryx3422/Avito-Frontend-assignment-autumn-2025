@@ -33,8 +33,8 @@ const ChartDecisions = () => {
     fetchDecisionData();
   }, []);
 
-  if (loading) return <div className="loading">загрузка...</div>;
-  if (error) return <div className="error">{error}</div>;
+  if (loading) return <div>загрузка...</div>;
+  if (error) return <div>{error}</div>;
 
   const values = [
     decisionsData.approved,
@@ -86,6 +86,9 @@ const ChartDecisions = () => {
                 callbacks: {
                   label: function (context) {
                     const value = context.raw;
+
+                    if (value === 0) return "";
+
                     const percent = ((value / total) * 100).toFixed(2);
                     return `${context.label}: ${percent}%`;
                   },
@@ -94,11 +97,11 @@ const ChartDecisions = () => {
 
               datalabels: {
                 color: "#000",
-                font: {
-                  size: 14,
-                },
+                font: { size: 14 },
+
                 formatter: (value) => {
-                  if (total === 0) return "";
+                  if (value === 0 || total === 0) return "";
+
                   const percent = ((value / total) * 100).toFixed(2);
                   return `${percent}%`;
                 },
