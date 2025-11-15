@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import ModeratorPanel_copy from "../components/ModeratorPanel_copy";
+import ModeratorPanel from "../components/ModeratorPanel";
 
 const ItemPage = () => {
   const { id } = useParams();
@@ -79,7 +79,7 @@ const ItemPage = () => {
 
   return (
     <div className="item-page">
-      <ModeratorPanel_copy adId={ad.id} />
+      <ModeratorPanel adId={ad.id} />
 
       <div className="item-card">
         <h1 className="item-title">{ad.title}</h1>
