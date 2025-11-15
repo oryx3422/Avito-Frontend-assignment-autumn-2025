@@ -1,7 +1,7 @@
 // decompose
 
 import React, { useState, useEffect } from "react";
-// import axios from "axios";
+import axios from "axios";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import ModeratorPanel_copy from "../components/ModeratorPanel_copy";
 
@@ -16,39 +16,39 @@ const ItemPage = () => {
   const [error, setError] = useState(null);
   const [currentAdIndex, setCurrentAdIndex] = useState(0);
 
-  useEffect(() => {
-    // console.log(`ads: ${ads}`);
-    if (ads && ads.length > 0) {
-      const currentAd = ads.find((ad) => ad.id === parseInt(id));
-      // console.log(`ad:', ${JSON.stringify(currentAd, null, 2)}`);
-      setAd(currentAd);
-      const index = ads.findIndex((ad) => ad.id === parseInt(id));
-      setCurrentAdIndex(index);
-      setLoading(false);
-    } else {
-      setLoading(false);
-      setError("Объявление не найдено!");
-    }
-  }, [id, ads]);
-
-  // const fetchAdDetails = async () => {
-  //   try {
-  //     setLoading(true);
-  //     const response = await axios.get(
-  //       `http://localhost:3001/api/v1/ads/${id}`
-  //     );
-  //     setAd(response.data);
-  //   } catch (err) {
-  //     setError(`Произошла ошибка при загрузке данных: ${err.message}`);
-  //     console.error(`fetch error: ${err}`);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-  //
   // useEffect(() => {
-  //   fetchAdDetails();
-  // }, [id]);
+  //   // console.log(`ads: ${ads}`);
+  //   if (ads && ads.length > 0) {
+  //     const currentAd = ads.find((ad) => ad.id === parseInt(id));
+  //     // console.log(`ad:', ${JSON.stringify(currentAd, null, 2)}`);
+  //     setAd(currentAd);
+  //     const index = ads.findIndex((ad) => ad.id === parseInt(id));
+  //     setCurrentAdIndex(index);
+  //     setLoading(false);
+  //   } else {
+  //     setLoading(false);
+  //     setError("Объявление не найдено!");
+  //   }
+  // }, [id, ads]);
+
+  const fetchAdDetails = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        `http://localhost:3001/api/v1/ads/${id}`
+      );
+      setAd(response.data);
+    } catch (err) {
+      setError(`Произошла ошибка при загрузке данных: ${err.message}`);
+      console.error(`fetch error: ${err}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchAdDetails();
+  }, [id]);
 
   const handleToList = () => {
     console.log(`navigate to list`);
@@ -75,7 +75,7 @@ const ItemPage = () => {
 
   if (!ad) return <div>Объявление не найдено!</div>;
 
-  const moderationHistory = ad.moderationHistory;
+  const moderationHistory = [...ad.moderationHistory].reverse();
 
   return (
     <div className="item-page">
@@ -144,7 +144,7 @@ const ItemPage = () => {
         {moderationHistory.map((moderator, index) => (
           <div key={index}>
             <p>Проверил: {moderator.moderatorName}</p>
-            <p>{new Date(moderator.timestamp).toLocaleDateString()}</p>
+            <p>{new Date(moderator.timestamp).toLocaleString("ru-RU", {})}</p>
 
             <p>
               {moderator.action === "approved"
@@ -152,12 +152,12 @@ const ItemPage = () => {
                 : moderator.action === "rejected"
                 ? "Отклонено"
                 : moderator.action === "requestChanges"
-                ? "Запрос на доработку"
+                ? "Доработка"
                 : ""}
             </p>
-            {moderator.action === "rejected" && (
+            {moderator.action !== "approved" && (
               <div>
-                <p> 
+                <p>
                   Причина:{" "}
                   {moderator.comment ? moderator.comment : moderator.reason}
                 </p>

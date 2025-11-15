@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 
 const ModeratorPanel_copy = ({ adId }) => {
+  const [action, setAction] = useState("");
   const [reason, setReason] = useState("");
   const [comment, setComment] = useState("");
   const [isSending, setIsSending] = useState(false);
@@ -17,14 +18,13 @@ const ModeratorPanel_copy = ({ adId }) => {
       console.error(`approve: ${err} `);
     } finally {
       setIsSending(false);
+      setAction("");
+      setReason("");
+      setComment("");
     }
   };
 
   const handleReject = async () => {
-    if (!reason) {
-      return;
-    }
-
     try {
       setIsSending(true);
       const response = await axios.post(
@@ -36,6 +36,9 @@ const ModeratorPanel_copy = ({ adId }) => {
       console.error(`reject: ${err} `);
     } finally {
       setIsSending(false);
+      setAction("");
+      setReason("");
+      setComment("");
     }
   };
 
@@ -51,9 +54,14 @@ const ModeratorPanel_copy = ({ adId }) => {
       console.error(`request-changes: ${err} `);
     } finally {
       setIsSending(false);
+      setAction("");
+      setReason("");
+      setComment("");
     }
   };
- 
+
+  const isReasonInvalid = !reason || (reason === "Другое" && !comment);
+
   return (
     <div className="moderator-panel">
       <button
@@ -65,14 +73,14 @@ const ModeratorPanel_copy = ({ adId }) => {
       </button>
       <button
         disabled={isSending}
-        onClick={handleReject}
+        onClick={() => setAction("reject")}
         style={{ backgroundColor: "red" }}
       >
         Отклонить
       </button>
       <button
         disabled={isSending}
-        onClick={handleRequestChanges}
+        onClick={() => setAction("requestChanges")}
         style={{ backgroundColor: "yellow" }}
       >
         Доработка
@@ -80,28 +88,54 @@ const ModeratorPanel_copy = ({ adId }) => {
 
       {isSending && <div className="loading">загрузка...</div>}
 
-      <div>
-        <select value={reason} onChange={(e) => setReason(e.target.value)}>
-          <option value="">Выберите причину</option>
-          <option value="Запрещённый товар">Запрещённый товар</option>
-          <option value="Неверная категория">Неверная категория</option>
-          <option value="Некорректное описание">Некорректное описание</option>
-          <option value="Проблемы с фото">Проблемы с фото</option>
-          <option value="Подозрение на мошенничество">
-            Подозрение на мошенничество
-          </option>
-          <option value="Другое">Другое</option>
-        </select>
+      {(action === "reject" || action === "requestChanges") && (
+        <div>
+          <select value={reason} onChange={(e) => setReason(e.target.value)}>
+            <option value="">Выберите причину</option>
+            <option value="Запрещённый товар">Запрещённый товар</option>
+            <option value="Неверная категория">Неверная категория</option>
+            <option value="Некорректное описание">Некорректное описание</option>
+            <option value="Проблемы с фото">Проблемы с фото</option>
+            <option value="Подозрение на мошенничество">
+              Подозрение на мошенничество
+            </option>
+            <option value="Другое">Другое</option>
+          </select>
 
-        {reason === "Другое" && (
-          <input
-            type="text"
-            placeholder="Введите причину"
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-          />
-        )}
-      </div>
+          {reason === "Другое" && (
+            <input
+              type="text"
+              placeholder="Введите причину"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+            />
+          )}
+
+          {action === "reject" && (
+            <button
+              disabled={isSending || isReasonInvalid}
+              onClick={() => {
+                handleReject();
+                setAction("");
+              }}
+            >
+              Отправить
+            </button>
+          )}
+
+          {action === "requestChanges" && (
+            <button
+              disabled={isSending || isReasonInvalid}
+              onClick={() => {
+                handleRequestChanges();
+                setAction("");
+              }}
+            >
+              Отправить
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 };

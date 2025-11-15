@@ -41,7 +41,7 @@ const ListPage = () => {
 
   useEffect(() => {
     fetchAds(currentPage);
-  }, [currentPage]);
+  }, [currentPage, ]);
 
   const handleCLick = (ad) => {
     console.log("navigate to ad.id:", ad.id);
