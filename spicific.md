@@ -33,15 +33,15 @@
 
 ### Список объявлений
 
-![Список объявлений](./screenshots/list-page.jpg)
+![Список объявлений](./screenshots/list-page.png)
 
 ### Детальный просмотр объявления
 
-![Детальный просмотр](./screenshots/item-page.jpg)
+![Детальный просмотр](./screenshots/item-page.png)
 
 ### Статистика модератора
 
-![Статистика](./screenshots/stats-page.jpg)
+![Статистика](./screenshots/stats-page.png)
 
 ## Инструкция по запуску проекта
 
