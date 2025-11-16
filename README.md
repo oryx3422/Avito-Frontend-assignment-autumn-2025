@@ -29,6 +29,20 @@
    - Круговая диаграмма распределения решений
    - График по категориям
 
+## Скриншоты реализации
+
+### Список объявлений
+
+![Список объявлений](./screenshots/list-page.png)
+
+### Детальный просмотр объявления
+
+![Детальный просмотр](./screenshots/item-page.png)
+
+### Статистика модератора
+
+![Статистика](./screenshots/stats-page.png)
+
 ## Инструкция по запуску проекта
 
 ### Требования
@@ -41,7 +55,7 @@
 #### 1. Клонирование репозитория
 
 ```bash
-git clone https://github.com/oryx3422/Avito-Frontend-trainee-assignment-autumn-2025
+git clone <repository-url>
 cd Avito-Frontend-trainee-assignment-autumn-2025
 ```
 
@@ -83,7 +97,7 @@ npm run dev
 ### Структура проекта
 
 ```
-├── client/                 # Клиентское приложение
+├── client/                 # Клиентское приложение (React)
 │   ├── src/
 │   │   ├── components/    # React компоненты
 │   │   ├── pages/         # Страницы приложения
@@ -91,7 +105,7 @@ npm run dev
 │   │   └── styles/        # Глобальные стили
 │   ├── package.json
 │   └── vite.config.js
-├── server/                 # Серверное приложение
+├── server/                 # Серверное приложение (Express)
 │   ├── src/
 │   │   ├── controllers/   # Контроллеры API
 │   │   ├── models/        # Модели данных
@@ -99,4 +113,5 @@ npm run dev
 │   ├── server.js
 │   └── package.json
 └── README.md
+
 ```
