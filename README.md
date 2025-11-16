@@ -55,7 +55,7 @@
 #### 1. Клонирование репозитория
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/oryx3422/Avito-Frontend-trainee-assignment-autumn-2025
 cd Avito-Frontend-trainee-assignment-autumn-2025
 ```
 
