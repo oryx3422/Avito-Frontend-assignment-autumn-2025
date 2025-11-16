@@ -15,8 +15,7 @@ import MyInput from "../../UI/input/MyInput";
 import MyCheckbox from "../../UI/checkbox/MyCheckBox";
 import Loader from "../../UI/Loader/Loader.jsx";
 
-
-import "./ListPage.css"
+import "./ListPage.css";
 
 const ListPage = () => {
   const { page } = useParams();
@@ -25,7 +24,7 @@ const ListPage = () => {
   const [adsOrig, setAdsOrig] = useState([]);
   const [ads, setAds] = useState([]);
   const [allAds, setAllAds] = useState([]);
-  const [currentPage, setCurrentPage] = useState(pageNum );
+  const [currentPage, setCurrentPage] = useState(pageNum);
   const [pagination, setPagination] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -42,16 +41,15 @@ const ListPage = () => {
   const navigate = useNavigate();
 
   const fetchAllAdsForNavigation = async () => {
-  try {
-    const res = await axios.get("http://localhost:3001/api/v1/ads", {
-      params: { limit: 200 }
-    });
-    setAllAds(res.data.ads);
-  } catch (err) {
-    console.error("Ошибка при загрузке всех объявлений:", err);
-  }
-};
-
+    try {
+      const res = await axios.get("http://localhost:3001/api/v1/ads", {
+        params: { limit: 200 },
+      });
+      setAllAds(res.data.ads);
+    } catch (err) {
+      console.error("Ошибка при загрузке всех объявлений:", err);
+    }
+  };
 
   const fetchAds = async (page = 1) => {
     try {
@@ -75,13 +73,12 @@ const ListPage = () => {
   };
 
   useEffect(() => {
-  fetchAllAdsForNavigation();
-}, []);
-
+    fetchAllAdsForNavigation();
+  }, []);
 
   useEffect(() => {
-  setCurrentPage(pageNum);
-}, [pageNum]);
+    setCurrentPage(pageNum);
+  }, [pageNum]);
 
   useEffect(() => {
     fetchAds(currentPage);
@@ -94,7 +91,12 @@ const ListPage = () => {
     });
   };
 
-  if (loading) return <div className="loading"><Loader /></div>; // todo: add loader
+  if (loading)
+    return (
+      <div className="loading">
+        <Loader />
+      </div>
+    ); // todo: add loader
   if (error) return <div className="error">{error}</div>;
 
   const applyFiltersAndSort = (sortValue) => {
@@ -206,21 +208,19 @@ const ListPage = () => {
     });
   };
 
-  
-
   return (
     <div className="list-container">
       <h1 className="ads-title">Объявления для вас </h1>
 
       <div className="ads-filter">
         <div className="ads-search">
-        <MyInput
-          value={filters.search}
-          onChange={(e) => setFilters({ ...filters, search: e.target.value })}
-          placeholder="Поиск по объявлениям"
-          className="ads-search__input"
-          type="text"
-        />
+          <MyInput
+            value={filters.search}
+            onChange={(e) => setFilters({ ...filters, search: e.target.value })}
+            placeholder="Поиск по объявлениям"
+            className="ads-search__input"
+            type="text"
+          />
         </div>
 
         <div className="filter-group">
@@ -296,7 +296,6 @@ const ListPage = () => {
       </div>
 
       <div className="ads-list">
-
         {ads.map((ad) => (
           <div
             className="add-card__container"
@@ -309,7 +308,7 @@ const ListPage = () => {
       </div>
 
       <Pagination
-        className='ads-pagination'
+        className="ads-pagination"
         currentPage={pagination.currentPage}
         totalPages={pagination.totalPages}
         onPageChange={(page) => navigate(`/list/${page}`)}

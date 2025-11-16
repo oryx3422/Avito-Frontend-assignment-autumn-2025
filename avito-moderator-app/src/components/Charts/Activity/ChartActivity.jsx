@@ -77,8 +77,7 @@ const ChartActivity = () => {
               y: {
                 ticks: {
                   stepSize: 1,
-                  callback: (value) =>
-                    Number.isInteger(value) ? value : null,
+                  callback: (value) => (Number.isInteger(value) ? value : null),
                 },
               },
               x: {

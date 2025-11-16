@@ -8,8 +8,7 @@ import ItemNavigate from "../../components/ItemNavigate.jsx";
 
 import Loader from "../../UI/Loader/Loader.jsx";
 
-import './ItemPage.css'
-
+import "./ItemPage.css";
 
 const ItemPage = () => {
   const { id } = useParams();
@@ -22,7 +21,6 @@ const ItemPage = () => {
   const [error, setError] = useState(null);
   const [currentAdIndex, setCurrentAdIndex] = useState(0);
   const ads = location.state?.ads || [];
-
 
   // useEffect(() => {
   //   // console.log(`ads: ${ads}`);
@@ -40,11 +38,11 @@ const ItemPage = () => {
   // }, [id, ads]);
 
   useEffect(() => {
-  if (ads.length > 0) {
-    const index = ads.findIndex(a => a.id === Number(id));
-    setCurrentAdIndex(index === -1 ? 0 : index);
-  }
-}, [id, ads]);
+    if (ads.length > 0) {
+      const index = ads.findIndex((a) => a.id === Number(id));
+      setCurrentAdIndex(index === -1 ? 0 : index);
+    }
+  }, [id, ads]);
 
   const fetchAdDetails = async () => {
     try {
@@ -70,21 +68,24 @@ const ItemPage = () => {
     navigate(`/list/${page}`);
   };
 
-const handlePrevAd = () => {
-  if (currentAdIndex <= 0) return;
-  const prevAd = ads[currentAdIndex - 1];
-  navigate(`/item/${prevAd.id}`, { state: { ads, page  } });
-};
+  const handlePrevAd = () => {
+    if (currentAdIndex <= 0) return;
+    const prevAd = ads[currentAdIndex - 1];
+    navigate(`/item/${prevAd.id}`, { state: { ads, page } });
+  };
 
+  const handleNextAd = () => {
+    if (currentAdIndex >= ads.length - 1) return;
+    const nextAd = ads[currentAdIndex + 1];
+    navigate(`/item/${nextAd.id}`, { state: { ads, page } });
+  };
 
-const handleNextAd = () => {
-  if (currentAdIndex >= ads.length - 1) return;
-  const nextAd = ads[currentAdIndex + 1];
-  navigate(`/item/${nextAd.id}`, { state: { ads, page } });
-};
-
-
-  if (loading) return <div className="loading"><Loader /></div>; // todo: add loader
+  if (loading)
+    return (
+      <div className="loading">
+        <Loader />
+      </div>
+    ); // todo: add loader
   if (error) return <div className="error">{error}</div>;
 
   if (!ad) return <div>Объявление не найдено!</div>;
@@ -94,12 +95,13 @@ const handleNextAd = () => {
   return (
     <div className="item-page">
       <ModeratorPanel adId={ad.id} />
-      <ItemNavigate 
+      <ItemNavigate
         onToList={handleToList}
-  onPrev={handlePrevAd}
-  onNext={handleNextAd}
-  disablePrev={currentAdIndex === 0}
-  disableNext={currentAdIndex === ads.length - 1}/>
+        onPrev={handlePrevAd}
+        onNext={handleNextAd}
+        disablePrev={currentAdIndex === 0}
+        disableNext={currentAdIndex === ads.length - 1}
+      />
 
       <div className="item-card">
         <h1 className="item-title">{ad.title}</h1>
@@ -205,13 +207,13 @@ const handleNextAd = () => {
         </div>
       </div> */}
 
-        <ItemNavigate 
+      <ItemNavigate
         onToList={handleToList}
-  onPrev={handlePrevAd}
-  onNext={handleNextAd}
-  disablePrev={currentAdIndex === 0}
-  disableNext={currentAdIndex === ads.length - 1}/>
-
+        onPrev={handlePrevAd}
+        onNext={handleNextAd}
+        disablePrev={currentAdIndex === 0}
+        disableNext={currentAdIndex === ads.length - 1}
+      />
     </div>
   );
 };

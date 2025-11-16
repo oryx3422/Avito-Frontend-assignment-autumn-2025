@@ -1,8 +1,8 @@
 .card {
-  width: 100%;              
+  width: 100%;
   padding: 12px 10px;
 
-  border: 1px solid #000;     
+  border: 1px solid #000;
   background: #fff;
 
   display: flex;
@@ -20,7 +20,7 @@
 }
 
 .value {
-  font-size: 18px;           
+  font-size: 18px;
   font-weight: 600;
   color: #000;
   margin: 0;

@@ -1,7 +1,13 @@
 import React from "react";
 import MyButton from "../../src/UI/button/MyButton";
 
-const ItemNavigation = ({ onToList, onPrev, onNext, disablePrev, disableNext }) => {
+const ItemNavigation = ({
+  onToList,
+  onPrev,
+  onNext,
+  disablePrev,
+  disableNext,
+}) => {
   return (
     <div className="navigate__container">
       <div className="navigation-buttons">

@@ -23,7 +23,7 @@
   flex-wrap: wrap;
   gap: 16px;
 
-  justify-content: center; 
+  justify-content: center;
   align-items: flex-start;
 
   margin-top: 15px;
@@ -39,8 +39,6 @@
 
   display: block;
 }
-
-
 
 .item-description {
   font-size: 15px;

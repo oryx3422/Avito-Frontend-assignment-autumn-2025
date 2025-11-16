@@ -69,7 +69,7 @@ const ModeratorPanel_copy = ({ adId }) => {
         comment,
       });
       notifySent();
-      
+
       resetFields();
       refreshPage();
     } catch (err) {
@@ -166,9 +166,7 @@ const ModeratorPanel_copy = ({ adId }) => {
           <button
             className="moderator-panel__submit"
             disabled={isSending}
-            onClick={
-              action === "reject" ? handleReject : handleRequestChanges
-            }
+            onClick={action === "reject" ? handleReject : handleRequestChanges}
           >
             Отправить
           </button>

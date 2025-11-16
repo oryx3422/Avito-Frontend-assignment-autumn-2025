@@ -8,7 +8,6 @@
   font-weight: 700;
 
   margin-bottom: 10px;
-
 }
 
 .ads-filter {
@@ -20,7 +19,6 @@
   margin-bottom: 10px;
 
   border: 1px solid #000;
-
 }
 
 .filter-group {
@@ -54,7 +52,6 @@
   flex-direction: column;
   gap: 14px;
 }
-
 
 .add-card__container {
   cursor: pointer;
@@ -90,4 +87,3 @@
   font-size: 1.5rem;
   color: #666;
 }
-

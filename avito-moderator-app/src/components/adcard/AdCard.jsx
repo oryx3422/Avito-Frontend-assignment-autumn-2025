@@ -10,7 +10,6 @@ const statusLabels = {
 const AdCard = ({ ad }) => {
   return (
     <div className={classes.adCard}>
-
       <div className={classes.adImageContainer}>
         <img
           loading="lazy"
@@ -21,15 +20,15 @@ const AdCard = ({ ad }) => {
         />
       </div>
 
-       <div className={classes.adInfo}>
+      <div className={classes.adInfo}>
         <h3 className={classes.adTitle}>{ad.title}</h3>
-        
+
         <p className={classes.adPrice}>
           {ad.price > 0
             ? `${ad.price.toLocaleString("ru-RU")} ₽`
             : "Цена не указана."}
         </p>
-        
+
         <p className={classes.adMeta}>
           {ad.category} | {new Date(ad.createdAt).toLocaleDateString()}
         </p>
@@ -41,7 +40,6 @@ const AdCard = ({ ad }) => {
           Приоритет: {ad.priority === "urgent" ? "срочный" : "обычный"}
         </p>
       </div>
-
     </div>
   );
 };
